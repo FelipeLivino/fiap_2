@@ -85,7 +85,7 @@ gs1/
 | `data` | Dados de apoio e base RAG | Seeds, fontes ouro, textos curados, chunks e arquivos usados para alimentar banco, demonstracao e RAG. | [data/README.md](data/README.md) |
 | `database` | Persistencia e estrutura SQL | Scripts de criacao do PostgreSQL, tabelas relacionais, indices e suporte a `pgvector`. | [database/README.md](database/README.md) |
 | `deep-learning` | Treinamento visual com YOLO | Notebook e artefatos de Deep Learning para classificar residuos/objetos em agua superficial. | [deep-learning/README.md](deep-learning/README.md) |
-| `docs` | Documentacao de entrega | Materiais para PDF, roteiro de video, arquitetura, checklist, governanca de IA e documentacao academica. | [docs/README.md](docs/README.md) |
+| `docs` | Documentacao de entrega | Material PDF. | [docs/README.md](docs/README.md) |
 | `frontend-dashboard` | Dashboard principal | Interface React/Vite com monitoramento, historico, perfil ML, visao computacional, relatorio IA, alertas e Mission Control. | [frontend-dashboard/README.md](frontend-dashboard/README.md) |
 | `iot-wokwi` | ESP32 simulado e IoT | Firmware e circuito Wokwi com sensores simulados, LCD, LEDs, buzzer, MQTT, fila local e decisao na borda. | [iot-wokwi/README.md](iot-wokwi/README.md) |
 | `machine-learning` | Machine Learning tabular | Notebook de treinamento do modelo de potabilidade com EDA, tratamento de dados, comparacao de modelos e exportacao `.joblib`. | [machine-learning/README.md](machine-learning/README.md) |
@@ -109,11 +109,6 @@ O **AstroWater AI** aplica essa visao de missao critica na Terra. A POC usa IA, 
 
 Essa abordagem tambem se conecta com a economia espacial porque mostra como tecnologias originalmente associadas ao espaco podem gerar impacto social direto. Um exemplo real e a India: a ISRO usa sensoriamento remoto por satelite em agricultura, solos, previsao de producao de safras e observacao da Terra, mostrando como infraestrutura espacial pode apoiar seguranca alimentar, planejamento e desenvolvimento social. O AstroWater AI segue essa mesma ideia em escala de POC: usar tecnologia inspirada no setor espacial para proteger um recurso essencial a vida humana.
 
-Referencias de contexto:
-
-- [ISRO - Agriculture and Soil](https://www.isro.gov.in/AgricultureandSoil.html)
-- [ISRO - Space Applications](https://www.isro.gov.in/SpaceApplications.html)
-- [ISRO - Earth Observation](https://www.isro.gov.in/EarthObservation.html)
 
 ## Problema
 
