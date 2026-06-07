@@ -2,12 +2,6 @@
 
 Projeto Wokwi do no ESP32 simulado do AstroWater AI.
 
-## Visao para avaliacao
-
-Este modulo representa a camada embarcada/IoT da POC. Ele simula um ESP32 em campo coletando sinais de agua, tomando uma decisao local de triagem e publicando telemetria via MQTT. A escolha por MQTT, fila local e decisao na borda reforca conceitos de Edge Computing e IoT eficiente.
-
-O professor deve observar que o ESP32 nao e apenas decorativo: ele calcula `edgeRisk`, aciona LED/LCD/buzzer localmente, armazena medicoes em fila quando a rede cai e sincroniza depois.
-
 ## Estrutura da pasta
 
 ```text
@@ -328,12 +322,6 @@ No Serial Monitor aparecem mensagens como:
 [SYNC] Medicao removida da fila. Pendentes: 2
 ```
 
-Para demonstrar no video, deixe `ENABLE_MQTT = true` e use o slide switch como simulador de queda/retorno de rede:
-
-- Switch em `ON`: o firmware conecta no WiFi/MQTT e envia as medicoes pendentes.
-- Switch em `OFF`: o firmware simula queda de rede, desconecta WiFi/MQTT e continua salvando as medicoes no ring buffer em RAM.
-- Quando o switch volta para `ON`, a fila e sincronizada com o broker.
-
 No Serial Monitor aparecem mensagens como:
 
 ```text
@@ -353,8 +341,6 @@ Na simulacao com MQTT ativo, os parametros `Conductivity`, `Organic_carbon` e `T
 ```
 
 Isso preserva a demonstracao do fluxo IoT/MQTT/Node-RED sem esconder a limitacao tecnica do ESP32.
-
-Se quiser demonstrar a mudanca desses tres parametros ao vivo, desligue a rede no slide switch, ajuste os potenciometros, deixe as medicoes entrarem na fila e depois ligue a rede novamente para sincronizar via MQTT.
 
 ## Arquivos
 

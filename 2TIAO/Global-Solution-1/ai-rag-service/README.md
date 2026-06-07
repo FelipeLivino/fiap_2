@@ -415,7 +415,3 @@ Campos principais:
 - `pgvectorAvailable`: indica se o banco vetorial esta acessivel;
 - `vectorChunksLoaded`: quantidade de chunks no `rag_chunks`;
 - `knowledgeSourcesLoaded`: quantidade de documentos no `rag_documents`.
-
-## Observacao
-
-O modelo `gemini-3.1-flash-lite` foi anunciado como disponivel em preview no Gemini API/Google AI Studio. Caso sua chave/API retorne erro de modelo indisponivel, ajuste `GEMINI_MODEL` para o nome liberado na sua conta.

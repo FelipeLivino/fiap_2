@@ -125,16 +125,6 @@ flowchart TD
     Mission --> MissionControl["Aba Mission Control"]
 ```
 
-## O que demonstrar no video
-
-1. Abrir `http://localhost:3000`.
-2. Selecionar uma comunidade.
-3. Mostrar prioridade de triagem e explicacao do motivo.
-4. Mostrar historico de sensores e parametros de ML.
-5. Mostrar bloco de visao computacional vindo do Raspberry Pi.
-6. Mostrar Relatorio IA com fontes, `pgvector` e `safetyLevel`.
-7. Ir para a aba Mission Control e mostrar a fila operacional.
-
 ## Qualidade por Machine Learning
 
 O ESP32 publica somente via MQTT. O Node-RED recebe a mensagem e encaminha para o backend, que executa o modelo treinado de potabilidade antes de salvar no banco.

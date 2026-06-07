@@ -199,6 +199,3 @@ surface_water_waste_detection.ipynb
 - `reports`: graficos, tabelas comparativas, matrizes de confusao, curvas de treino e predicoes de exemplo.
 - `models`: pesos exportados ou copiados para integracao futura.
 
-## Como explicar na GS
-
-O Raspberry Pi com camera captura uma imagem da agua superficial. O modelo de deep learning identifica residuos visuais e gera um indice de poluicao visual. O backend combina esse indice com sensores simulados do ESP32 e com o modelo tabular de potabilidade.
