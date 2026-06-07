@@ -1,0 +1,10 @@
+{
+  "name": "astrowater-node-red",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Node-RED automation flows for AstroWater AI MQTT ingestion and backend integration.",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "node-red-dashboard": "3.6.5"
+  }
+}

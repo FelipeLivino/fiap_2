@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "author": "AstroWater AI",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 57.6, "left": -62.36, "attrs": {} },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potPh",
+      "top": -39.7,
+      "left": -441.8,
+      "attrs": { "value": "2048", "label": "pH 0-14 | GPIO34" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potTurbidity",
+      "top": -39.7,
+      "left": -336.2,
+      "attrs": { "value": "120", "label": "Turbidez/NTU | GPIO35" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potHardness",
+      "top": -30.1,
+      "left": -201.8,
+      "attrs": { "value": "2225", "label": "Dureza Hardness | GPIO32" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potSolids",
+      "top": -39.7,
+      "left": -57.8,
+      "attrs": { "value": "1386", "label": "Solidos TDS | GPIO33" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potChloramines",
+      "top": -30.1,
+      "left": 38.2,
+      "attrs": { "value": "2172", "label": "Cloraminas | GPIO36" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potSulfate",
+      "top": 27.5,
+      "left": -576.2,
+      "attrs": { "value": "2374", "label": "Sulfato | GPIO39" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potConductivity",
+      "top": 152.3,
+      "left": -576.2,
+      "attrs": { "value": "1726", "label": "Condutividade | GPIO4" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potOrganicCarbon",
+      "top": 267.5,
+      "left": -576.2,
+      "attrs": { "value": "1880", "label": "Carbono organico | GPIO13" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potTrihalomethanes",
+      "top": 401.9,
+      "left": -576.2,
+      "attrs": { "value": "2188", "label": "Trihalometanos | GPIO12" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelPh",
+      "top": -57.6,
+      "left": -432,
+      "attrs": { "text": "pH 0-14" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelTurbidity",
+      "top": -57.6,
+      "left": -326.4,
+      "attrs": { "text": "Turbidez " }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelHardness",
+      "top": -57.6,
+      "left": -192,
+      "attrs": { "text": "dureza" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelSolids",
+      "top": -57.6,
+      "left": -48,
+      "attrs": { "text": "Solidos" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelChloramines",
+      "top": -57.6,
+      "left": 38.4,
+      "attrs": { "text": "Cloraminas" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelSulfate",
+      "top": 0,
+      "left": -576,
+      "attrs": { "text": "Sulfato" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelConductivity",
+      "top": 124.8,
+      "left": -585.6,
+      "attrs": { "text": "Condutividade" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelOrganicCarbon",
+      "top": 249.6,
+      "left": -624,
+      "attrs": { "text": "Carbono orgânico" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelTrihalomethanes",
+      "top": 374.4,
+      "left": -614.4,
+      "attrs": { "text": "Trihalometanos" }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht",
+      "top": 432.3,
+      "left": -24.6,
+      "attrs": { "temperature": "25", "humidity": "55", "label": "Sensor temperatura" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledGreen",
+      "top": 322.8,
+      "left": -351.4,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledYellow",
+      "top": 322.8,
+      "left": -303.4,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledRed",
+      "top": 322.8,
+      "left": -255.4,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rGreen",
+      "top": 455.15,
+      "left": -364.8,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rYellow",
+      "top": 416.75,
+      "left": -307.2,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rRed",
+      "top": 387.95,
+      "left": -230.4,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzzer",
+      "top": 88.8,
+      "left": 174.6,
+      "attrs": { "volume": "0.1" }
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd",
+      "top": 294.4,
+      "left": 120.8,
+      "attrs": { "pins": "i2c" }
+    },
+    { "type": "wokwi-slide-switch", "id": "sw1", "top": 340.4, "left": -25.7, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "text1",
+      "top": 307.2,
+      "left": -86.4,
+      "attrs": { "text": "Rede Wi-Fi (ON/OFF)" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:3V3", "potPh:VCC", "red", [ "h0" ] ],
+    [ "esp:GND.1", "potPh:GND", "black", [ "h0" ] ],
+    [ "esp:34", "potPh:SIG", "green", [ "h0" ] ],
+    [ "esp:3V3", "potTurbidity:VCC", "red", [ "h0" ] ],
+    [ "esp:GND.1", "potTurbidity:GND", "black", [ "h0" ] ],
+    [ "esp:35", "potTurbidity:SIG", "green", [ "h0" ] ],
+    [ "esp:3V3", "potHardness:VCC", "red", [ "h0" ] ],
+    [ "esp:GND.1", "potHardness:GND", "black", [ "h0" ] ],
+    [ "esp:32", "potHardness:SIG", "green", [ "h0" ] ],
+    [ "esp:3V3", "potSolids:VCC", "red", [ "h-19.05", "v-28.8", "h68" ] ],
+    [ "esp:GND.1", "potSolids:GND", "black", [ "h-47.85", "v-172.8", "h76.8" ] ],
+    [ "esp:33", "potSolids:SIG", "green", [ "h-38.25", "v-105.6", "h77.2" ] ],
+    [ "esp:3V3", "potChloramines:VCC", "red", [ "v-28.8", "h144.95" ] ],
+    [ "esp:GND.2", "potChloramines:GND", "black", [ "h0" ] ],
+    [ "esp:36", "potChloramines:SIG", "green", [ "h0" ] ],
+    [ "esp:3V3", "potSulfate:VCC", "red", [ "h0" ] ],
+    [ "esp:GND.2", "potSulfate:GND", "black", [ "v-19.2", "h-528", "v57.6", "h-57.6" ] ],
+    [ "esp:39", "potSulfate:SIG", "green", [ "h0" ] ],
+    [ "esp:3V3", "potConductivity:VCC", "red", [ "h-412.65", "v153.6", "h-56.8" ] ],
+    [ "esp:GND.2", "potConductivity:GND", "black", [ "v-19.2", "h-528", "v182.4", "h-57.6" ] ],
+    [ "esp:4", "potConductivity:SIG", "green", [ "h28.8", "v96", "h-508.8", "v-67.2", "h-95.6" ] ],
+    [ "esp:3V3", "potOrganicCarbon:VCC", "red", [ "h-412.65", "v259.2", "h-56.8" ] ],
+    [ "esp:GND.2", "potOrganicCarbon:GND", "black", [ "v-19.2", "h-528", "v297.6", "h-57.6" ] ],
+    [ "esp:13", "potOrganicCarbon:SIG", "green", [ "h-422.25", "v134.4", "h-57.2" ] ],
+    [ "esp:3V3", "potTrihalomethanes:VCC", "red", [ "h-412.65", "v393.6", "h-56.8" ] ],
+    [ "esp:GND.2", "potTrihalomethanes:GND", "black", [ "v-19.2", "h-528", "v422.4", "h-57.6" ] ],
+    [ "esp:12", "potTrihalomethanes:SIG", "green", [ "h-422.25", "v326.4", "h-57.2" ] ],
+    [ "esp:3V3", "dht:VCC", "red", [ "h-335.85", "v316.8" ] ],
+    [ "esp:GND.2", "dht:GND", "black", [ "h38.4", "v547.2", "h-57.6", "v-38.4" ] ],
+    [ "esp:15", "dht:SDA", "green", [ "h28.8", "v374.4", "h-67.3" ] ],
+    [ "esp:25", "ledGreen:A", "green", [ "h0" ] ],
+    [ "ledGreen:C", "rGreen:1", "green", [ "h0" ] ],
+    [ "rGreen:2", "esp:GND.1", "black", [ "h200.4", "v-249.6" ] ],
+    [ "esp:26", "ledYellow:A", "yellow", [ "h0" ] ],
+    [ "ledYellow:C", "rYellow:1", "yellow", [ "v21.4", "h-76.2" ] ],
+    [ "rYellow:2", "esp:GND.1", "black", [ "h142.8", "v-211.2" ] ],
+    [ "esp:27", "ledRed:A", "red", [ "h-28.65", "v67.2" ] ],
+    [ "ledRed:C", "rRed:1", "red", [ "v28.8", "h-28.4" ] ],
+    [ "rRed:2", "esp:GND.1", "black", [ "h66", "v-182.4" ] ],
+    [ "esp:14", "buzzer:1", "purple", [ "h-19.05", "v86.4", "h278.4" ] ],
+    [ "buzzer:2", "esp:GND.2", "black", [ "v28.8", "h-106", "v-134.4", "h-67.2" ] ],
+    [ "esp:3V3", "lcd:VCC", "red", [ "v-28.8", "h182.55" ] ],
+    [ "esp:GND.2", "lcd:GND", "black", [ "v-19.2", "h67.2", "v259.2" ] ],
+    [ "esp:21", "lcd:SDA", "blue", [ "h57.6", "v211" ] ],
+    [ "esp:22", "lcd:SCL", "blue", [ "h48", "v249.3" ] ],
+    [ "sw1:1", "esp:GND.2", "black", [ "v38.4", "h96", "v-326.4" ] ],
+    [ "sw1:2", "esp:16", "green", [ "v19.2", "h76.9", "v-201.6" ] ]
+  ],
+  "dependencies": {}
+}

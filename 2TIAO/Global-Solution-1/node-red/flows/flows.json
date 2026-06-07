@@ -1,0 +1,806 @@
+[
+  {
+    "id": "tab_astrowater_mqtt",
+    "type": "tab",
+    "label": "AstroWater MQTT Bridge",
+    "disabled": false,
+    "info": "Recebe leituras MQTT do ESP32/Wokwi, separa alertas por risco e encaminha para o backend FastAPI."
+  },
+  {
+    "id": "mqtt_broker_emqx",
+    "type": "mqtt-broker",
+    "name": "broker.emqx.io",
+    "broker": "broker.emqx.io",
+    "port": "1883",
+    "clientid": "astrowater-node-red",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "willMsg": {},
+    "userProps": "",
+    "sessionExpiry": ""
+  },
+  {
+    "id": "mqtt_in_astrowater",
+    "type": "mqtt in",
+    "z": "tab_astrowater_mqtt",
+    "name": "MQTT ESP32 readings",
+    "topic": "fiap/astrowater/readings",
+    "qos": "0",
+    "datatype": "auto-detect",
+    "broker": "mqtt_broker_emqx",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 150,
+    "y": 100,
+    "wires": [
+      [
+        "json_parse_reading"
+      ]
+    ]
+  },
+  {
+    "id": "json_parse_reading",
+    "type": "json",
+    "z": "tab_astrowater_mqtt",
+    "name": "Parse JSON",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 360,
+    "y": 100,
+    "wires": [
+      [
+        "fn_normalize_reading",
+        "debug_raw_payload"
+      ]
+    ]
+  },
+  {
+    "id": "fn_normalize_reading",
+    "type": "function",
+    "z": "tab_astrowater_mqtt",
+    "name": "Normalize backend payload",
+    "func": "let reading = msg.payload || {};\n\nif (typeof reading === 'string') {\n    try {\n        reading = JSON.parse(reading);\n    } catch (error) {\n        node.warn(`Payload MQTT nao era JSON valido: ${reading}`);\n        reading = {};\n    }\n}\n\nconst asNumber = (value) => Number.isFinite(Number(value)) ? Number(value) : null;\nconst asNumberOr = (value, fallback) => Number.isFinite(Number(value)) ? Number(value) : fallback;\nconst pick = (...values) => values.find((value) => value !== undefined && value !== null && value !== '');\nconst edgeRisk = String(pick(reading.edgeRisk, reading.risk, 'verde')).toLowerCase();\nconst mlFeatures = {\n    Hardness: asNumber(pick(reading.Hardness, reading.hardness)),\n    Solids: asNumber(pick(reading.Solids, reading.solids)),\n    Chloramines: asNumber(pick(reading.Chloramines, reading.chloramines)),\n    Sulfate: asNumber(pick(reading.Sulfate, reading.sulfate)),\n    Conductivity: asNumber(pick(reading.Conductivity, reading.conductivity)),\n    Organic_carbon: asNumber(pick(reading.Organic_carbon, reading.organicCarbon, reading.organic_carbon)),\n    Trihalomethanes: asNumber(pick(reading.Trihalomethanes, reading.trihalomethanes)),\n    Turbidity: asNumber(pick(reading.Turbidity, reading.mlTurbidity, reading.ml_turbidity))\n};\n\nmsg.payload = {\n    deviceId: pick(reading.deviceId, reading.device_id, 'ASTRO-ESP32-001'),\n    community: pick(reading.community, 'Comunidade Aurora'),\n    ph: asNumberOr(reading.ph, 7),\n    turbidity: asNumberOr(reading.turbidity, 0),\n    temperature: asNumberOr(reading.temperature, 25),\n    ...mlFeatures,\n    edgeRisk,\n    source: pick(reading.source, 'node-red-mqtt-bridge'),\n    networkSwitch: pick(reading.networkSwitch, reading.network_switch, 'ON'),\n    mlFeatures,\n    raw: reading\n};\n\nmsg.headers = { 'Content-Type': 'application/json' };\nmsg.risk = edgeRisk;\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 600,
+    "y": 100,
+    "wires": [
+      [
+        "switch_risk_level",
+        "http_post_backend",
+        "fn_build_dashboard_metrics",
+        "debug_normalized_payload"
+      ]
+    ]
+  },
+  {
+    "id": "ui_tab_astrowater",
+    "type": "ui_tab",
+    "name": "AstroWater AI",
+    "icon": "dashboard",
+    "order": 1,
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "ui_group_overview",
+    "type": "ui_group",
+    "name": "Monitoramento em tempo real",
+    "tab": "ui_tab_astrowater",
+    "order": 1,
+    "disp": true,
+    "width": "12",
+    "collapse": false,
+    "className": ""
+  },
+  {
+    "id": "fn_build_dashboard_metrics",
+    "type": "function",
+    "z": "tab_astrowater_mqtt",
+    "name": "Build /ui metrics",
+    "func": "const p = msg.payload || {};\nconst f = p.mlFeatures || {};\nconst numberOrZero = (value) => Number.isFinite(Number(value)) ? Number(value) : 0;\nconst fmt = (value) => Number.isFinite(Number(value)) ? Number(value).toFixed(2) : '-';\n\nconst metricPairs = [\n    ['pH', p.ph],\n    ['Turbidez operacional', p.turbidity],\n    ['Temperatura', p.temperature],\n    ['Hardness', f.Hardness],\n    ['Solids', f.Solids],\n    ['Chloramines', f.Chloramines],\n    ['Sulfate', f.Sulfate],\n    ['Conductivity', f.Conductivity],\n    ['Organic carbon', f.Organic_carbon],\n    ['Trihalomethanes', f.Trihalomethanes],\n    ['Turbidity ML', f.Turbidity]\n];\n\nconst metrics = metricPairs\n    .filter(([, value]) => Number.isFinite(Number(value)))\n    .map(([topic, value]) => ({ topic, payload: Number(value) }));\n\nconst table = [\n    { name: 'deviceId', value: p.deviceId || '-' },\n    { name: 'community', value: p.community || '-' },\n    { name: 'edgeRisk', value: p.edgeRisk || '-' },\n    { name: 'networkSwitch', value: p.networkSwitch || '-' },\n    ...metricPairs.map(([name, value]) => ({ name, value: fmt(value) }))\n];\nconst statusText = `${p.community || 'Comunidade'} | risco ${p.edgeRisk || '-'} | rede ${p.networkSwitch || '-'} | ${new Date().toLocaleTimeString('pt-BR')}`;\nconst status = { payload: { status: statusText, table } };\n\nreturn [\n    metrics,\n    status,\n    { payload: numberOrZero(p.ph) },\n    { payload: numberOrZero(p.turbidity) },\n    { payload: numberOrZero(p.temperature) },\n    { payload: numberOrZero(f.Hardness) },\n    { payload: numberOrZero(f.Solids) },\n    { payload: numberOrZero(f.Chloramines) },\n    { payload: numberOrZero(f.Sulfate) },\n    { payload: numberOrZero(f.Conductivity) },\n    { payload: numberOrZero(f.Organic_carbon) },\n    { payload: numberOrZero(f.Trihalomethanes) },\n    { payload: numberOrZero(f.Turbidity) }\n];",
+    "outputs": 13,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 860,
+    "y": 300,
+    "wires": [
+      [
+        "ui_chart_all_metrics"
+      ],
+      [
+        "ui_text_status",
+        "ui_template_all_values"
+      ],
+      [
+        "ui_gauge_ph"
+      ],
+      [
+        "ui_gauge_turbidity"
+      ],
+      [
+        "ui_gauge_temperature"
+      ],
+      [
+        "ui_gauge_hardness"
+      ],
+      [
+        "ui_gauge_solids"
+      ],
+      [
+        "ui_gauge_chloramines"
+      ],
+      [
+        "ui_gauge_sulfate"
+      ],
+      [
+        "ui_gauge_conductivity"
+      ],
+      [
+        "ui_gauge_organic_carbon"
+      ],
+      [
+        "ui_gauge_trihalomethanes"
+      ],
+      [
+        "ui_gauge_ml_turbidity"
+      ]
+    ]
+  },
+  {
+    "id": "ui_chart_all_metrics",
+    "type": "ui_chart",
+    "z": "tab_astrowater_mqtt",
+    "name": "Grafico parametros",
+    "group": "ui_group_overview",
+    "order": 5,
+    "width": "12",
+    "height": "8",
+    "label": "Parametros recebidos do ESP32/Wokwi",
+    "chartType": "line",
+    "legend": "true",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "Aguardando leituras MQTT",
+    "dot": false,
+    "ymin": "",
+    "ymax": "",
+    "removeOlder": "30",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": [
+      "#1f77b4",
+      "#ff7f0e",
+      "#2ca02c",
+      "#d62728",
+      "#9467bd",
+      "#8c564b",
+      "#e377c2",
+      "#7f7f7f",
+      "#bcbd22"
+    ],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "className": "",
+    "x": 1120,
+    "y": 300,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ui_group_ml_features",
+    "type": "ui_group",
+    "name": "Parametros do modelo de Machine Learning",
+    "tab": "ui_tab_astrowater",
+    "order": 2,
+    "disp": true,
+    "width": "12",
+    "collapse": false,
+    "className": ""
+  },
+  {
+    "id": "ui_text_status",
+    "type": "ui_text",
+    "z": "tab_astrowater_mqtt",
+    "group": "ui_group_overview",
+    "order": 1,
+    "width": "12",
+    "height": "1",
+    "name": "Status leitura",
+    "label": "Ultima leitura",
+    "format": "{{msg.payload.status}}",
+    "layout": "row-spread",
+    "className": "",
+    "x": 1110,
+    "y": 350,
+    "wires": []
+  },
+  {
+    "id": "ui_template_all_values",
+    "type": "ui_template",
+    "z": "tab_astrowater_mqtt",
+    "group": "ui_group_overview",
+    "name": "Tabela parametros recebidos",
+    "order": 6,
+    "width": "12",
+    "height": "8",
+    "format": "<div style=\"font-family: Roboto, Arial, sans-serif;\">\n  <h3 style=\"margin: 0 0 12px 0;\">Parametros recebidos no MQTT</h3>\n  <table style=\"width:100%; border-collapse: collapse; font-size: 14px;\">\n    <thead>\n      <tr>\n        <th style=\"text-align:left; padding:6px; border-bottom:1px solid #ddd;\">Parametro</th>\n        <th style=\"text-align:right; padding:6px; border-bottom:1px solid #ddd;\">Valor</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"item in msg.payload.table\">\n        <td style=\"padding:6px; border-bottom:1px solid #eee;\">{{item.name}}</td>\n        <td style=\"text-align:right; padding:6px; border-bottom:1px solid #eee;\">{{item.value}}</td>\n      </tr>\n    </tbody>\n  </table>\n</div>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "className": "",
+    "x": 1140,
+    "y": 375,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ui_gauge_ph",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge pH",
+    "group": "ui_group_overview",
+    "order": 2,
+    "width": "4",
+    "height": "4",
+    "gtype": "gage",
+    "title": "pH",
+    "label": "0-14",
+    "format": "{{value}}",
+    "min": 0,
+    "max": "14",
+    "colors": [
+      "#ca3838",
+      "#00b500",
+      "#ca3838"
+    ],
+    "seg1": "6.5",
+    "seg2": "8.5",
+    "diff": false,
+    "className": "",
+    "x": 1110,
+    "y": 400,
+    "wires": []
+  },
+  {
+    "id": "ui_gauge_turbidity",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge turbidez",
+    "group": "ui_group_overview",
+    "order": 3,
+    "width": "4",
+    "height": "4",
+    "gtype": "gage",
+    "title": "Turbidez",
+    "label": "NTU",
+    "format": "{{value}}",
+    "min": 0,
+    "max": "100",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "5",
+    "seg2": "50",
+    "diff": false,
+    "className": "",
+    "x": 1130,
+    "y": 450,
+    "wires": []
+  },
+  {
+    "id": "ui_gauge_temperature",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge temperatura",
+    "group": "ui_group_overview",
+    "order": 4,
+    "width": "4",
+    "height": "4",
+    "gtype": "gage",
+    "title": "Temperatura",
+    "label": "C",
+    "format": "{{value}}",
+    "min": 0,
+    "max": "45",
+    "colors": [
+      "#1f77b4",
+      "#00b500",
+      "#ca3838"
+    ],
+    "seg1": "5",
+    "seg2": "35",
+    "diff": false,
+    "className": "",
+    "x": 1140,
+    "y": 500,
+    "wires": []
+  },
+  {
+    "id": "ui_gauge_hardness",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge Hardness",
+    "group": "ui_group_ml_features",
+    "order": 1,
+    "width": "3",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Hardness",
+    "label": "mg/L",
+    "format": "{{value}}",
+    "min": 47,
+    "max": "323",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "180",
+    "seg2": "260",
+    "diff": false,
+    "className": "",
+    "x": 1140,
+    "y": 550,
+    "wires": []
+  },
+  {
+    "id": "ui_gauge_solids",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge Solids",
+    "group": "ui_group_ml_features",
+    "order": 2,
+    "width": "3",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Solids",
+    "label": "ppm",
+    "format": "{{value}}",
+    "min": 320,
+    "max": "61227",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "20000",
+    "seg2": "40000",
+    "diff": false,
+    "className": "",
+    "x": 1130,
+    "y": 600,
+    "wires": []
+  },
+  {
+    "id": "ui_gauge_chloramines",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge Chloramines",
+    "group": "ui_group_ml_features",
+    "order": 3,
+    "width": "3",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Chloramines",
+    "label": "ppm",
+    "format": "{{value}}",
+    "min": 0.35,
+    "max": "13.13",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "4",
+    "seg2": "8",
+    "diff": false,
+    "className": "",
+    "x": 1150,
+    "y": 650,
+    "wires": []
+  },
+  {
+    "id": "ui_gauge_sulfate",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge Sulfate",
+    "group": "ui_group_ml_features",
+    "order": 4,
+    "width": "3",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Sulfate",
+    "label": "mg/L",
+    "format": "{{value}}",
+    "min": 129,
+    "max": "481",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "250",
+    "seg2": "400",
+    "diff": false,
+    "className": "",
+    "x": 1130,
+    "y": 700,
+    "wires": []
+  },
+  {
+    "id": "ui_gauge_conductivity",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge Conductivity",
+    "group": "ui_group_ml_features",
+    "order": 5,
+    "width": "3",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Conductivity",
+    "label": "uS/cm",
+    "format": "{{value}}",
+    "min": 181,
+    "max": "753",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "400",
+    "seg2": "600",
+    "diff": false,
+    "className": "",
+    "x": 1150,
+    "y": 750,
+    "wires": []
+  },
+  {
+    "id": "ui_gauge_organic_carbon",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge Organic carbon",
+    "group": "ui_group_ml_features",
+    "order": 6,
+    "width": "3",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Organic carbon",
+    "label": "ppm",
+    "format": "{{value}}",
+    "min": 2.2,
+    "max": "28.3",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "12",
+    "seg2": "20",
+    "diff": false,
+    "className": "",
+    "x": 1160,
+    "y": 800,
+    "wires": []
+  },
+  {
+    "id": "ui_gauge_trihalomethanes",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge Trihalomethanes",
+    "group": "ui_group_ml_features",
+    "order": 7,
+    "width": "3",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Trihalomethanes",
+    "label": "ug/L",
+    "format": "{{value}}",
+    "min": 0.74,
+    "max": "124",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "50",
+    "seg2": "90",
+    "diff": false,
+    "className": "",
+    "x": 1170,
+    "y": 850,
+    "wires": []
+  },
+  {
+    "id": "ui_gauge_ml_turbidity",
+    "type": "ui_gauge",
+    "z": "tab_astrowater_mqtt",
+    "name": "Gauge Turbidity ML",
+    "group": "ui_group_ml_features",
+    "order": 8,
+    "width": "3",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Turbidity ML",
+    "label": "dataset",
+    "format": "{{value}}",
+    "min": 1.45,
+    "max": "6.74",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "3",
+    "seg2": "5",
+    "diff": false,
+    "className": "",
+    "x": 1150,
+    "y": 900,
+    "wires": []
+  },
+  {
+    "id": "switch_risk_level",
+    "type": "switch",
+    "z": "tab_astrowater_mqtt",
+    "name": "Route by risk",
+    "property": "risk",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "vermelho",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "laranja",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "amarelo",
+        "vt": "str"
+      },
+      {
+        "t": "else"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 4,
+    "x": 850,
+    "y": 80,
+    "wires": [
+      [
+        "debug_critical_alert"
+      ],
+      [
+        "debug_attention_alert"
+      ],
+      [
+        "debug_attention_alert"
+      ],
+      [
+        "debug_green_reading"
+      ]
+    ]
+  },
+  {
+    "id": "http_post_backend",
+    "type": "http request",
+    "z": "tab_astrowater_mqtt",
+    "name": "POST backend /readings",
+    "method": "POST",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "http://backend-api:8000/readings",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "x": 870,
+    "y": 180,
+    "wires": [
+      [
+        "debug_backend_response"
+      ]
+    ]
+  },
+  {
+    "id": "debug_raw_payload",
+    "type": "debug",
+    "z": "tab_astrowater_mqtt",
+    "name": "raw mqtt",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 590,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "debug_normalized_payload",
+    "type": "debug",
+    "z": "tab_astrowater_mqtt",
+    "name": "payload normalizado com ML",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload.edgeRisk",
+    "statusType": "msg",
+    "x": 880,
+    "y": 240,
+    "wires": []
+  },
+  {
+    "id": "debug_critical_alert",
+    "type": "debug",
+    "z": "tab_astrowater_mqtt",
+    "name": "ALERTA CRITICO",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload.edgeRisk",
+    "statusType": "msg",
+    "x": 1110,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "debug_attention_alert",
+    "type": "debug",
+    "z": "tab_astrowater_mqtt",
+    "name": "Atencao",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload.edgeRisk",
+    "statusType": "msg",
+    "x": 1090,
+    "y": 90,
+    "wires": []
+  },
+  {
+    "id": "debug_green_reading",
+    "type": "debug",
+    "z": "tab_astrowater_mqtt",
+    "name": "Leitura normal",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload.edgeRisk",
+    "statusType": "msg",
+    "x": 1110,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "debug_backend_response",
+    "type": "debug",
+    "z": "tab_astrowater_mqtt",
+    "name": "backend response",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "statusCode",
+    "statusType": "msg",
+    "x": 1120,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "inject_example_green",
+    "type": "inject",
+    "z": "tab_astrowater_mqtt",
+    "name": "Exemplo verde",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "manual/test",
+    "payload": "{\"deviceId\":\"ASTRO-ESP32-001\",\"community\":\"Comunidade Aurora\",\"ph\":7.1,\"turbidity\":3.2,\"temperature\":25,\"Hardness\":196.9,\"Solids\":20984.4,\"Chloramines\":7.13,\"Sulfate\":333.8,\"Conductivity\":422.1,\"Organic_carbon\":14.2,\"Trihalomethanes\":66.4,\"Turbidity\":3.5,\"edgeRisk\":\"verde\",\"networkSwitch\":\"ON\",\"source\":\"node-red-test\"}",
+    "payloadType": "json",
+    "x": 160,
+    "y": 200,
+    "wires": [
+      [
+        "fn_normalize_reading"
+      ]
+    ]
+  },
+  {
+    "id": "inject_example_red",
+    "type": "inject",
+    "z": "tab_astrowater_mqtt",
+    "name": "Exemplo vermelho",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "manual/test",
+    "payload": "{\"deviceId\":\"ASTRO-ESP32-001\",\"community\":\"Comunidade Aurora\",\"ph\":9.7,\"turbidity\":65,\"temperature\":32,\"Hardness\":285.2,\"Solids\":52000.8,\"Chloramines\":10.9,\"Sulfate\":440.5,\"Conductivity\":690.2,\"Organic_carbon\":24.1,\"Trihalomethanes\":110.5,\"Turbidity\":6.1,\"edgeRisk\":\"vermelho\",\"networkSwitch\":\"ON\",\"source\":\"node-red-test\"}",
+    "payloadType": "json",
+    "x": 170,
+    "y": 250,
+    "wires": [
+      [
+        "fn_normalize_reading"
+      ]
+    ]
+  }
+]

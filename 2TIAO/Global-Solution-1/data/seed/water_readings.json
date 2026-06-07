@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "communityId": 1,
+    "deviceId": "ASTRO-ESP32-001",
+    "timestamp": "2026-05-29T08:00:00-03:00",
+    "ph": 6.9,
+    "turbidity": 4.2,
+    "temperature": 24.8,
+    "edgeRisk": "verde"
+  },
+  {
+    "id": 2,
+    "communityId": 1,
+    "deviceId": "ASTRO-ESP32-001",
+    "timestamp": "2026-05-29T10:00:00-03:00",
+    "ph": 6.7,
+    "turbidity": 18.4,
+    "temperature": 25.6,
+    "edgeRisk": "amarelo"
+  },
+  {
+    "id": 3,
+    "communityId": 1,
+    "deviceId": "ASTRO-ESP32-001",
+    "timestamp": "2026-05-29T12:00:00-03:00",
+    "ph": 6.8,
+    "turbidity": 37.9,
+    "temperature": 26.3,
+    "edgeRisk": "laranja"
+  },
+  {
+    "id": 4,
+    "communityId": 1,
+    "deviceId": "ASTRO-ESP32-001",
+    "timestamp": "2026-05-29T14:00:00-03:00",
+    "ph": 6.5,
+    "turbidity": 68.2,
+    "temperature": 27.1,
+    "edgeRisk": "vermelho"
+  },
+  {
+    "id": 5,
+    "communityId": 2,
+    "deviceId": "ASTRO-ESP32-002",
+    "timestamp": "2026-05-29T08:00:00-03:00",
+    "ph": 7.2,
+    "turbidity": 2.1,
+    "temperature": 22.9,
+    "edgeRisk": "verde"
+  },
+  {
+    "id": 6,
+    "communityId": 2,
+    "deviceId": "ASTRO-ESP32-002",
+    "timestamp": "2026-05-29T10:00:00-03:00",
+    "ph": 6.2,
+    "turbidity": 4.8,
+    "temperature": 23.4,
+    "edgeRisk": "amarelo"
+  },
+  {
+    "id": 7,
+    "communityId": 2,
+    "deviceId": "ASTRO-ESP32-002",
+    "timestamp": "2026-05-29T12:00:00-03:00",
+    "ph": 5.7,
+    "turbidity": 7.4,
+    "temperature": 24.1,
+    "edgeRisk": "vermelho"
+  },
+  {
+    "id": 8,
+    "communityId": 2,
+    "deviceId": "ASTRO-ESP32-002",
+    "timestamp": "2026-05-29T14:00:00-03:00",
+    "ph": 9.3,
+    "turbidity": 6.2,
+    "temperature": 24.5,
+    "edgeRisk": "vermelho"
+  },
+  {
+    "id": 9,
+    "communityId": 3,
+    "deviceId": "ASTRO-ESP32-003",
+    "timestamp": "2026-05-29T08:00:00-03:00",
+    "ph": 7.1,
+    "turbidity": 3.6,
+    "temperature": 28.8,
+    "edgeRisk": "verde"
+  },
+  {
+    "id": 10,
+    "communityId": 3,
+    "deviceId": "ASTRO-ESP32-003",
+    "timestamp": "2026-05-29T10:00:00-03:00",
+    "ph": 7.4,
+    "turbidity": 8.9,
+    "temperature": 32.2,
+    "edgeRisk": "amarelo"
+  },
+  {
+    "id": 11,
+    "communityId": 3,
+    "deviceId": "ASTRO-ESP32-003",
+    "timestamp": "2026-05-29T12:00:00-03:00",
+    "ph": 7.8,
+    "turbidity": 19.7,
+    "temperature": 36.4,
+    "edgeRisk": "laranja"
+  },
+  {
+    "id": 12,
+    "communityId": 3,
+    "deviceId": "ASTRO-ESP32-003",
+    "timestamp": "2026-05-29T14:00:00-03:00",
+    "ph": 8.7,
+    "turbidity": 28.1,
+    "temperature": 37.6,
+    "edgeRisk": "laranja"
+  }
+]

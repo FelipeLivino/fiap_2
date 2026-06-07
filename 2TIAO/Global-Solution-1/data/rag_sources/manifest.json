@@ -1,0 +1,107 @@
+[
+  {
+    "sourceId": "who-drinking-water-quality-guidelines",
+    "title": "WHO Guidelines for drinking-water quality",
+    "sourceType": "official",
+    "sourceUrl": "https://www.who.int/teams/environment-climate-change-and-health/water-sanitation-and-health/water-safety-and-quality/drinking-water-quality-guidelines",
+    "rawPath": "raw/who_drinking_water_quality.md",
+    "processedPath": "processed/who_drinking_water_quality.clean.md",
+    "trustedLevel": "gold",
+    "language": "pt-BR",
+    "collectedAt": "2026-05-31",
+    "topics": ["potabilidade", "water safety plan", "saude publica", "vigilancia sanitaria"],
+    "notes": "Resumo tecnico proprio baseado em pagina oficial da WHO sobre diretrizes de qualidade da agua."
+  },
+  {
+    "sourceId": "cdc-make-water-safe-emergency",
+    "title": "CDC - How to Make Water Safe in an Emergency",
+    "sourceType": "official",
+    "sourceUrl": "https://www.cdc.gov/water-emergency/about/index.html",
+    "rawPath": "raw/cdc_make_water_safe_emergency.md",
+    "processedPath": "processed/cdc_make_water_safe_emergency.clean.md",
+    "trustedLevel": "gold",
+    "language": "pt-BR",
+    "collectedAt": "2026-05-31",
+    "topics": ["emergencia", "fervura", "desinfeccao", "agua segura"],
+    "notes": "Resumo tecnico proprio baseado em orientacao oficial do CDC para tratamento de agua em emergencia."
+  },
+  {
+    "sourceId": "epa-drinking-water-contaminants",
+    "title": "EPA - Drinking Water Regulations and Contaminants",
+    "sourceType": "official",
+    "sourceUrl": "https://www.epa.gov/sdwa/drinking-water-regulations-and-contaminants",
+    "rawPath": "raw/epa_drinking_water_contaminants.md",
+    "processedPath": "processed/epa_drinking_water_contaminants.clean.md",
+    "trustedLevel": "gold",
+    "language": "pt-BR",
+    "collectedAt": "2026-05-31",
+    "topics": ["contaminantes", "regulacao", "padroes", "risco quimico"],
+    "notes": "Resumo tecnico proprio baseado em pagina oficial da EPA sobre contaminantes e regulacoes de agua potavel."
+  },
+  {
+    "sourceId": "nasa-eclss-water-recovery",
+    "title": "NASA - Environmental Control and Life Support Systems",
+    "sourceType": "official",
+    "sourceUrl": "https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/",
+    "rawPath": "raw/nasa_eclss_water_recovery.md",
+    "processedPath": "processed/nasa_eclss_water_recovery.clean.md",
+    "trustedLevel": "gold",
+    "language": "pt-BR",
+    "collectedAt": "2026-05-31",
+    "topics": ["suporte de vida espacial", "recuperacao de agua", "monitoramento", "sistemas fechados"],
+    "notes": "Resumo tecnico proprio baseado em referencia oficial da NASA sobre ECLSS e recuperacao de agua."
+  },
+  {
+    "sourceId": "astrowater-potabilidade-triagem",
+    "title": "AstroWater AI - Potabilidade e triagem",
+    "sourceType": "project",
+    "sourceUrl": null,
+    "rawPath": "../rag/potabilidade_triagem.md",
+    "processedPath": "../rag/potabilidade_triagem.md",
+    "trustedLevel": "project",
+    "language": "pt-BR",
+    "collectedAt": "2026-05-31",
+    "topics": ["triagem", "pH", "turbidez", "risco"],
+    "notes": "Documento interno da POC com regras de triagem usadas no dashboard e no backend."
+  },
+  {
+    "sourceId": "astrowater-acoes-preventivas",
+    "title": "AstroWater AI - Acoes preventivas",
+    "sourceType": "project",
+    "sourceUrl": null,
+    "rawPath": "../rag/acoes_preventivas.md",
+    "processedPath": "../rag/acoes_preventivas.md",
+    "trustedLevel": "project",
+    "language": "pt-BR",
+    "collectedAt": "2026-05-31",
+    "topics": ["acoes preventivas", "risco", "comunidade"],
+    "notes": "Documento interno da POC com recomendacoes preventivas por severidade."
+  },
+  {
+    "sourceId": "astrowater-visao-computacional-agua",
+    "title": "AstroWater AI - Visao computacional aplicada a agua",
+    "sourceType": "project",
+    "sourceUrl": null,
+    "rawPath": "../rag/visao_computacional_agua.md",
+    "processedPath": "../rag/visao_computacional_agua.md",
+    "trustedLevel": "project",
+    "language": "pt-BR",
+    "collectedAt": "2026-05-31",
+    "topics": ["visao computacional", "sedimentos", "turbidez visual"],
+    "notes": "Documento interno da POC com explicacao das classes visuais."
+  },
+  {
+    "sourceId": "astrowater-suporte-vida-espacial",
+    "title": "AstroWater AI - Suporte a vida espacial",
+    "sourceType": "project",
+    "sourceUrl": null,
+    "rawPath": "../rag/suporte_vida_espacial.md",
+    "processedPath": "../rag/suporte_vida_espacial.md",
+    "trustedLevel": "project",
+    "language": "pt-BR",
+    "collectedAt": "2026-05-31",
+    "topics": ["suporte de vida espacial", "edge computing", "monitoramento remoto"],
+    "notes": "Documento interno da POC conectando economia espacial e monitoramento de agua na Terra."
+  }
+]
+

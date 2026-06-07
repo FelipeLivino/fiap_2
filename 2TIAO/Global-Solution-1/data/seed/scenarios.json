@@ -1,0 +1,82 @@
+[
+  {
+    "id": "safe-water",
+    "title": "Amostra sem sinais criticos",
+    "communityId": 1,
+    "sensor": {
+      "ph": 6.9,
+      "turbidity": 4.2,
+      "temperature": 24.8
+    },
+    "vision": {
+      "visualClass": "transparente",
+      "visualTurbidityScore": 8,
+      "particlesDetected": 3
+    },
+    "expectedRisk": "verde"
+  },
+  {
+    "id": "attention-blue",
+    "title": "Coloracao azulada com outro sinal de atencao",
+    "communityId": 2,
+    "sensor": {
+      "ph": 7.4,
+      "turbidity": 6.2,
+      "temperature": 24.5
+    },
+    "vision": {
+      "visualClass": "azulada",
+      "visualTurbidityScore": 18,
+      "particlesDetected": 12
+    },
+    "expectedRisk": "laranja"
+  },
+  {
+    "id": "high-risk-turbid",
+    "title": "Turbidez elevada e imagem turva",
+    "communityId": 1,
+    "sensor": {
+      "ph": 6.8,
+      "turbidity": 37.9,
+      "temperature": 26.3
+    },
+    "vision": {
+      "visualClass": "turva",
+      "visualTurbidityScore": 54,
+      "particlesDetected": 84
+    },
+    "expectedRisk": "laranja"
+  },
+  {
+    "id": "critical-sediments",
+    "title": "Sedimentos visiveis e turbidez critica",
+    "communityId": 1,
+    "sensor": {
+      "ph": 6.5,
+      "turbidity": 68.2,
+      "temperature": 27.1
+    },
+    "vision": {
+      "visualClass": "com sedimentos",
+      "visualTurbidityScore": 86,
+      "particlesDetected": 216
+    },
+    "expectedRisk": "vermelho"
+  },
+  {
+    "id": "critical-ph",
+    "title": "pH fora da faixa segura",
+    "communityId": 2,
+    "sensor": {
+      "ph": 5.7,
+      "turbidity": 7.4,
+      "temperature": 24.1
+    },
+    "vision": {
+      "visualClass": "limpa",
+      "visualTurbidityScore": 6,
+      "particlesDetected": 2
+    },
+    "expectedRisk": "vermelho"
+  }
+]

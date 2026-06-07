@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Comunidade Aurora",
+    "location": "Regiao ribeirinha",
+    "scenario": "Captacao de agua superficial",
+    "expectedRisk": "Turbidez e sedimentos"
+  },
+  {
+    "id": 2,
+    "name": "Comunidade Horizonte",
+    "location": "Regiao rural",
+    "scenario": "Poco artesiano comunitario",
+    "expectedRisk": "pH fora da faixa ideal"
+  },
+  {
+    "id": 3,
+    "name": "Comunidade Vega",
+    "location": "Abrigo temporario",
+    "scenario": "Reservatorio compartilhado",
+    "expectedRisk": "Variacao de temperatura e alerta operacional"
+  }
+]

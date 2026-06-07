@@ -1,0 +1,30 @@
+.env
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.log
+tmp-dashboard-*.png
+automation/logs/
+
+# Arquivos grandes gerados durante testes locais
+vision-rpi/captures/*
+!vision-rpi/captures/README.md
+data/samples/*
+!data/samples/README.md
+
+# Artefatos gerados pelo treinamento de ML
+machine-learning/data/
+machine-learning/models/
+machine-learning/reports/
+
+# Artefatos gerados pelo treinamento de Deep Learning
+deep-learning/data/
+deep-learning/models/
+deep-learning/reports/
+deep-learning/runs/
+deep-learning/dataset_yolo.yaml

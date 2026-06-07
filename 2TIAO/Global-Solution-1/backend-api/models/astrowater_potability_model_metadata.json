@@ -1,0 +1,27 @@
+{
+  "project": "AstroWater AI",
+  "dataset": "adityakadiwal/water-potability",
+  "target": "Potability",
+  "features": [
+    "ph",
+    "Hardness",
+    "Solids",
+    "Chloramines",
+    "Sulfate",
+    "Conductivity",
+    "Organic_carbon",
+    "Trihalomethanes",
+    "Turbidity"
+  ],
+  "best_model": "SVM RBF",
+  "selection_metric": "f1",
+  "test_metrics": {
+    "model": "SVM RBF",
+    "accuracy": 0.6158536585365854,
+    "precision": 0.5079365079365079,
+    "recall": 0.5,
+    "f1": 0.5039370078740157,
+    "roc_auc": 0.6453417968749999
+  },
+  "safety_note": "POC educacional para triagem; nao substitui laudo laboratorial oficial."
+}

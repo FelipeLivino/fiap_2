@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "communityId": 1,
+    "deviceId": "ASTRO-RPI-CAM-001",
+    "timestamp": "2026-05-29T08:05:00-03:00",
+    "imageName": "aurora_transparente_001.jpg",
+    "visualClass": "transparente",
+    "visualTurbidityScore": 8,
+    "particlesDetected": 3,
+    "dominantColor": "incolor"
+  },
+  {
+    "id": 2,
+    "communityId": 1,
+    "deviceId": "ASTRO-RPI-CAM-001",
+    "timestamp": "2026-05-29T10:05:00-03:00",
+    "imageName": "aurora_turva_001.jpg",
+    "visualClass": "turva",
+    "visualTurbidityScore": 54,
+    "particlesDetected": 84,
+    "dominantColor": "marrom claro"
+  },
+  {
+    "id": 3,
+    "communityId": 1,
+    "deviceId": "ASTRO-RPI-CAM-001",
+    "timestamp": "2026-05-29T14:05:00-03:00",
+    "imageName": "aurora_sedimentos_001.jpg",
+    "visualClass": "com sedimentos",
+    "visualTurbidityScore": 86,
+    "particlesDetected": 216,
+    "dominantColor": "marrom"
+  },
+  {
+    "id": 4,
+    "communityId": 2,
+    "deviceId": "ASTRO-RPI-CAM-002",
+    "timestamp": "2026-05-29T08:05:00-03:00",
+    "imageName": "horizonte_limpa_001.jpg",
+    "visualClass": "limpa",
+    "visualTurbidityScore": 6,
+    "particlesDetected": 2,
+    "dominantColor": "incolor"
+  },
+  {
+    "id": 5,
+    "communityId": 2,
+    "deviceId": "ASTRO-RPI-CAM-002",
+    "timestamp": "2026-05-29T12:05:00-03:00",
+    "imageName": "horizonte_azulada_001.jpg",
+    "visualClass": "azulada",
+    "visualTurbidityScore": 18,
+    "particlesDetected": 12,
+    "dominantColor": "azul claro"
+  },
+  {
+    "id": 6,
+    "communityId": 3,
+    "deviceId": "ASTRO-RPI-CAM-003",
+    "timestamp": "2026-05-29T10:05:00-03:00",
+    "imageName": "vega_amarelada_001.jpg",
+    "visualClass": "amarelada",
+    "visualTurbidityScore": 43,
+    "particlesDetected": 38,
+    "dominantColor": "amarelo claro"
+  },
+  {
+    "id": 7,
+    "communityId": 3,
+    "deviceId": "ASTRO-RPI-CAM-003",
+    "timestamp": "2026-05-29T14:05:00-03:00",
+    "imageName": "vega_turva_001.jpg",
+    "visualClass": "turva",
+    "visualTurbidityScore": 61,
+    "particlesDetected": 97,
+    "dominantColor": "cinza claro"
+  }
+]
