@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+import os
 
 from fastapi import FastAPI, HTTPException, Query, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,14 +22,19 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="AstroWater AI Backend", lifespan=lifespan)
 
+frontend_port = os.getenv("FRONTEND_PORT", "3000")
+frontend_origins = {
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    f"http://localhost:{frontend_port}",
+    f"http://127.0.0.1:{frontend_port}",
+}
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=sorted(frontend_origins),
     allow_methods=["*"],
     allow_headers=["*"],
 )
