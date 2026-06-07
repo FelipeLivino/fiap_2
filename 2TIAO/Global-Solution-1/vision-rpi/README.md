@@ -2,20 +2,6 @@
 
 Modulo de visao computacional para Raspberry Pi 3B com Camera Module.
 
-## Visao para avaliacao
-
-Este modulo representa a computacao de borda visual da POC. O Raspberry Pi 3B captura ou recebe uma imagem da agua, analisa localmente e so depois envia a decisao ao backend. Isso demonstra Edge Computing: a borda participa da decisao e nao atua apenas como camera remota.
-
-Como o Raspberry Pi 3B de 1 GB tem pouca RAM, o projeto documenta dois modos: Deep Learning com YOLO quando possivel e OpenCV leve como fallback/complemento. Essa decisao e importante arquiteturalmente, porque mostra adaptacao ao hardware real.
-
-Responsabilidades:
-
-- Capturar imagem da amostra de agua.
-- Executar o modelo YOLO treinado no dataset de residuos em agua superficial.
-- Extrair features visuais com OpenCV como fallback e complemento.
-- Classificar a aparencia da agua e estimar score visual de poluicao.
-- Enviar resultado visual para o backend.
-
 ## Estrutura da pasta
 
 ```text

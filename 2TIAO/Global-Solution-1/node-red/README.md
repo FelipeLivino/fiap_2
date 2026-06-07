@@ -2,12 +2,6 @@
 
 Modulo de automacao visual do AstroWater AI.
 
-## Visao para avaliacao
-
-Este modulo mostra a integracao visual entre IoT e backend. Ele assina o topico MQTT publicado pelo ESP32/Wokwi, transforma o payload no formato esperado pela API, exibe todos os parametros no dashboard `/ui` e envia a leitura ao backend.
-
-Na apresentacao, o Node-RED ajuda o professor a enxergar o fluxo de automacao, sem depender apenas de logs no terminal.
-
 ## Estrutura da pasta
 
 ```text

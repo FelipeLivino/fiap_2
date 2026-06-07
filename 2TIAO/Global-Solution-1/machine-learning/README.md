@@ -2,12 +2,6 @@
 
 Este modulo treina modelos supervisionados para prever potabilidade da agua usando o dataset publico `adityakadiwal/water-potability`, baixado via `kagglehub`.
 
-## Visao para avaliacao
-
-Este modulo mostra a parte de analise de dados e Machine Learning tabular da POC. Ele nao substitui laudo laboratorial; serve como evidencia auxiliar para o backend entender se o perfil quimico simulado se parece com exemplos potaveis ou nao potaveis do dataset.
-
-O professor deve observar que o notebook nao apenas treina um modelo: ele explora dados, trata ausentes, compara imputacoes, compara algoritmos, acompanha curvas de treino e gera metricas explicaveis.
-
 ## Estrutura da pasta
 
 ```text
