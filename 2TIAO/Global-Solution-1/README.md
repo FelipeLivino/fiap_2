@@ -16,6 +16,12 @@ POC da Global Solution 2026.1 para **triagem inteligente de amostras de agua**, 
 
 > O AstroWater AI nao declara potabilidade oficial. Ele e uma ferramenta de apoio a triagem e priorizacao. Em caso de risco, a recomendacao e evitar consumo direto e encaminhar a amostra para avaliacao oficial.
 
+### Links importantes
+
+- <a href="https://wokwi.com/projects/432335594961267713">Sensores wokwi https://wokwi.com/projects/432335594961267713</a>
+- <a href="#">Video youtube</a>
+
+
 ## Nome do grupo
 
 Rumo ao NEXT
@@ -37,10 +43,6 @@ Rumo ao NEXT
 - <a href="https://www.linkedin.com/company/inova-fusca">ANDRÉ GODOI CHIOVATO</a>
 
 
-## Links importantes
-
-- <a href="https://wokwi.com/projects/432335594961267713">Sensores wokwi https://wokwi.com/projects/432335594961267713</a>
-- <a href="#">Video youtube</a>
 
 
 ## Sumario
