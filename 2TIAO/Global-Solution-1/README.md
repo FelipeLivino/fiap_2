@@ -56,9 +56,6 @@ Rumo ao NEXT
 - [Status, prioridade e confianca](#status-prioridade-e-confianca)
 - [Tecnologias e disciplinas FIAP](#tecnologias-e-disciplinas-fiap)
 - [Execucao com Docker Compose](#execucao-com-docker-compose)
-- [Como demonstrar](#como-demonstrar)
-- [Testes](#testes)
-- [Documentacao de entrega](#documentacao-de-entrega)
 - [Histórico de lançamentos](#historico-de-lancamentos)
 - [Licença](#licenca)
 
@@ -726,52 +723,6 @@ Como o Raspberry Pi 3B tem pouca RAM, o modulo documenta dois modos:
 - YOLO/Deep Learning quando o ambiente suportar PyTorch/Ultralytics;
 - OpenCV fallback para manter decisao visual de borda com menos custo.
 
-## Como demonstrar
-
-Roteiro sugerido para avaliacao:
-
-1. Abrir o dashboard em `http://localhost:3000`.
-2. Mostrar a arquitetura no README.
-3. Abrir Wokwi e alterar pH/turbidez para mudar LEDs/LCD/Serial.
-4. Mostrar o Node-RED recebendo MQTT e preenchendo `/ui`.
-5. Mostrar o backend recebendo leituras e o dashboard atualizando.
-6. Rodar uma analise visual no Raspberry Pi ou por imagem local.
-7. Mostrar o card de visao computacional no dashboard.
-8. Mostrar o Relatorio IA com fontes, `pgvector` e `safetyLevel`.
-9. Mostrar a aba Mission Control.
-10. Citar que a solucao e triagem e nao laudo oficial.
-
-## Testes
-
-```bash
-python -m unittest discover -s backend-api/tests
-python -m unittest discover -s ai-rag-service/tests
-python -m unittest discover -s vision-rpi/tests
-python -m unittest discover -s automation/tests
-docker compose config
-```
-
-## Documentacao de entrega
-
-- Documento Word base do PDF: [docs/AstroWater_AI_documento_entrega.docx](docs/AstroWater_AI_documento_entrega.docx)
-- Documento-base em Markdown: [docs/pdf-entrega.md](docs/pdf-entrega.md)
-- Roteiro do video: [docs/roteiro-video.md](docs/roteiro-video.md)
-- Checklist de entrega: [docs/checklist-entrega.md](docs/checklist-entrega.md)
-- Arquitetura: [docs/arquitetura.md](docs/arquitetura.md)
-- Disciplinas: [docs/disciplinas.md](docs/disciplinas.md)
-- Governanca de IA: [docs/governanca-ia-segura.md](docs/governanca-ia-segura.md)
-- Planejamento completo: [doc/astrowater_ai_disciplinas_e_tarefas.md](doc/astrowater_ai_disciplinas_e_tarefas.md)
-
-## Pontos fortes para a GS
-
-- Integra o maximo de disciplinas das Fases 3 e 4 em uma POC unica.
-- Usa problema humano real na Terra com conexao clara com economia espacial.
-- Demonstra sensores, Edge Computing, MQTT, dashboard, banco e automacao.
-- Inclui ML tabular, Deep Learning em notebook e visao computacional na borda.
-- Usa IA generativa com RAG, embeddings, pgvector e guardrails.
-- Possui arquitetura distribuida com Docker Compose.
-- Tem boa forca visual para video: Wokwi, Node-RED, dashboard espacial, RPi e Relatorio IA.
-
 ## Limites e evolucao futura
 
 Esta POC nao substitui analise oficial. Evolucoes possiveis:
@@ -790,16 +741,35 @@ O AstroWater AI e uma ferramenta de apoio a triagem e priorizacao. Ele nao decla
 
 ## 🗃 Histórico de lançamentos
 
-* 0.5.0 - XX/XX/2024
-    * 
-* 0.4.0 - XX/XX/2024
-    * 
-* 0.3.0 - XX/XX/2024
-    * 
-* 0.2.0 - XX/XX/2024
-    * 
-* 0.1.0 - XX/XX/2024
-    *
+* 1.0.0 - 08/06/2026
+    * Gravação do video de demonstração e finalização da POC
+* 0.13.0 - 07/06/2026
+    * Ajustes no readme e geração do relatório
+* 0.12.0 - 06/06/2026
+    * Integração de todos os módulos e ajuste fino
+* 0.11.0 - 05/06/2026
+    * Testes e ajustes no código do raspberry pi
+* 0.10.0 - 04/06/2026
+    * Construção do código do raspberry pi
+* 0.9.0 - 03/06/2026
+    * Construção do dashboard
+* 0.8.0 - 02/06/2026
+    * Construção dos algortmos de RAG
+* 0.7.0 - 01/06/2026
+    * Finalização do backend
+* 0.6.0 - 31/05/2026
+    * Inicio da construção do banco de dados e apis de backend
+* 0.5.0 - 30/05/2026
+    * Construido wokwi
+* 0.4.0 - 29/05/2026
+    * Testes e melhorias nos modelos de machine learning e deep learning
+* 0.3.0 - 28/05/2026
+    * Inicio em paralelo do notebook de machine learning e deep learning
+* 0.2.0 - 27/05/2026
+    * Definição das tarefas
+    * Definição de arquitetura
+* 0.1.0 - 26/05/2026
+    *Definição do tema
 
 ---
 
