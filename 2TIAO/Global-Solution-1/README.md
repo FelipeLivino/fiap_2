@@ -37,6 +37,12 @@ Rumo ao NEXT
 - <a href="https://www.linkedin.com/company/inova-fusca">ANDRÉ GODOI CHIOVATO</a>
 
 
+## Links importantes
+
+- <a href="https://wokwi.com/projects/432335594961267713">Sensores wokwi https://wokwi.com/projects/432335594961267713</a>
+- <a href="#">Video youtube</a>
+
+
 ## Sumario
 
 - [Estrutura de pastas](#estrutura-de-pastas)
