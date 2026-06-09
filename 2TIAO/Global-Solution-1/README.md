@@ -19,7 +19,7 @@ POC da Global Solution 2026.1 para **triagem inteligente de amostras de agua**, 
 ### Links importantes
 
 - <a href="https://wokwi.com/projects/432335594961267713">Sensores wokwi https://wokwi.com/projects/432335594961267713</a>
-- <a href="#">Video youtube</a>
+- <a href="https://youtu.be/K0_vrCI7ZvE">Video youtube</a>
 
 
 ## Nome do grupo
